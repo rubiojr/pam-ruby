@@ -37,6 +37,7 @@ $(RUBYPAM_SRC)/Makefile: $(RUBYPAM_SRC)/extconf.rb
 
 clean:
 	@rm -f $(OBJS) *~
+	$(MAKE) -C ruby-pam/ clean
 
 distclean: clean
 	@rm -f config.cache config.log config.status Makefile $(LIBNAME)
