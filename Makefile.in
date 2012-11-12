@@ -40,3 +40,4 @@ clean:
 
 distclean: clean
 	@rm -f config.cache config.log config.status Makefile $(LIBNAME)
+	$(MAKE) -C ruby-pam/ distclean
