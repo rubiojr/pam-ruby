@@ -1,0 +1,17 @@
+Source: pam-ruby
+Section: ruby
+Priority: optional
+Maintainer: Sergio Rubio <rubiojr@frameos.org>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, libpam0g-dev, ruby-dev
+Standards-Version: 3.9.2
+Homepage: http://github.com/rubiojr/pam-ruby
+#Vcs-Git: git://git.debian.org/collab-maint/pam-ruby.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/pam-ruby.git;a=summary
+XS-Ruby-Versions: all
+
+Package: pam-ruby
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter
+Description: PAM/Ruby Module
+ PAM/Ruby (pam_ruby) is a pam module to write pam authentication
+ functions with ruby.

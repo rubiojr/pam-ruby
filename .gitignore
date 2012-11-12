@@ -27,3 +27,5 @@ missing
 *.exe
 *.out
 *.app
+.vagrant
+Vagrantfile

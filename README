@@ -7,3 +7,9 @@ Original sources:
 
 * ruby-pam
   http://ruby-pam.cvs.sourceforge.net/viewvc/ruby-pam/ruby-pam/
+
+
+# Building
+
+    sudo apt-get install build-essential ruby-dev libpam0g-dev
+    ./configure && make

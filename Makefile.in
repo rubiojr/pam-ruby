@@ -15,7 +15,7 @@ LIBNAME    = pam_ruby.so
 all: $(LIBNAME)
 
 install: $(LIBNAME)
-	cp $(LIBNAME) $(INSTDIR)/$(LIBNAME)
+	install -D $(LIBNAME) $(INSTDIR)/$(LIBNAME)
 
 debug:
 	$(MAKE) all CFLAGS+="-DDEBUG"
