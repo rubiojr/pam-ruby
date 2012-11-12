@@ -6,6 +6,7 @@
 #define RB_PAM_H 1
 
 #include <ruby.h>
+#include <version.h>
 #include <security/pam_appl.h>
 #include <security/pam_modules.h>
 
