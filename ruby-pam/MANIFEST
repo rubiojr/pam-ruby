@@ -1,0 +1,12 @@
+test/check_get_item.rb
+test/check_user.rb
+test/gc_test.rb
+ChangeLog
+COPYING
+MANIFEST
+README
+depend
+extconf.rb
+pam_handle.c
+pam.c
+pam.h

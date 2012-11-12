@@ -1,0 +1,32 @@
+1.3.1 -> 1.3.2
+-------------
+* Fixed pam_ruby.c deprecation warnings
+* use rb_str_new2 instead of rb_tainted_str_new2 to fix SecurityError
+* include ruby-pam 1.5.2 sources
+* compile agains the included ruby-pam sources by default
+
+1.3 -> 1.3.1
+-------------
+* Fix a problem that pam_ruby-1.3 die by running with non-ruby program.
+
+1.2 -> 1.3
+-----------
+* PAM.module_dispatch is a new function. (See also sample/simple2.rb)
+
+1.1 -> 1.2
+----------
+* PAM.syslog is a new module function.
+  - PAM.syslog(priority, message)
+
+* new constants for specifying the priority of syslog:
+  - PAM::LOG_EMERG
+  - ....
+  - PAM::DEBUG
+  (see also the manual page of `syslog')
+
+* exceptions raised in the pam_ruby is logged by syslog
+  with LOG_ERR.
+
+* pam_ruby call the Init_pam(). it is becase Linux-PAM uses the
+  dlopen() with RTLD_NOW, so the pam_ruby can't resolve symbols
+  defined in the ruby-pam.

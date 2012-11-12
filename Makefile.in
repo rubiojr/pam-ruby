@@ -1,0 +1,42 @@
+CC = @CC@
+CPPFLAGS = @CPPFLAGS@
+CFLAGS   = @CFLAGS@
+LDFLAGS  = @LDFLAGS@
+LDSHARED = @LDSHARED@
+RUBYPAM_SRC = @RUBYPAM_SRC@
+RUBY     = @RUBY@
+INSTDIR  = @INSTDIR@
+
+OBJS     = pam_ruby.o
+EXTOBJS  = $(RUBYPAM_SRC)/pam.o $(RUBYPAM_SRC)/pam_handle.o
+
+LIBNAME    = pam_ruby.so
+
+all: $(LIBNAME)
+
+install: $(LIBNAME)
+	cp $(LIBNAME) $(INSTDIR)/$(LIBNAME)
+
+debug:
+	$(MAKE) all CFLAGS+="-DDEBUG"
+
+$(LIBNAME): $(OBJS) $(EXTOBJS)
+	$(LDSHARED) -o $(LIBNAME) $(OBJS) $(EXTOBJS) $(LDFLAGS)
+
+pam_ruby.o: pam_ruby.c pam_ruby.h
+	$(CC) -fPIC -g $(CPPFLAGS) $(CFLAGS) -c pam_ruby.c -o pam_ruby.o
+
+$(RUBYPAM_SRC)/pam.o: $(RUBYPAM_SRC)/Makefile $(RUBYPAM_SRC)/pam.c
+	(cd $(RUBYPAM_SRC); make pam.o)
+
+$(RUBYPAM_SRC)/pam_handle.o: $(RUBYPAM_SRC)/Makefile $(RUBYPAM_SRC)/pam_handle.c
+	(cd $(RUBYPAM_SRC); make pam_handle.o)
+
+$(RUBYPAM_SRC)/Makefile: $(RUBYPAM_SRC)/extconf.rb
+	(cd $(RUBYPAM_SRC); $(RUBY) extconf.rb)
+
+clean:
+	@rm -f $(OBJS) *~
+
+distclean: clean
+	@rm -f config.cache config.log config.status Makefile $(LIBNAME)

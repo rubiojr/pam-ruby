@@ -1,0 +1,46 @@
+                                   PAM/Ruby                                    
+                                                                               
+-------------------------------------------------------------------------------
+
+PAM/Ruby
+
+PAM/Ruby is a pam module for writing the pam authentication module with the
+ruby.
+-------------------------------------------------------------------------------
+
+Requirements
+
+  * ruby-pam-1.2
+
+-------------------------------------------------------------------------------
+
+Building and installing
+
+  * build the extension module `pam.so'
+      + tar -cvzf ruby-pam-x.x.tar.gz
+      + cd ruby-pam-x.x
+      + ruby extconf.rb
+      + make
+      + make install
+  * build the `pam_ruby.so'
+      + tar -xvzf pam-ruby-x.x.tar.gz
+      + cd pam-ruby-x.x
+      + ./configure --with-ruby-pam=../ruby-pam-x.x --with-ruby=/usr/local/bin/
+        ruby
+      + make
+      + cp pam_ruby.so /lib/security/pam_ruby.so
+
+-------------------------------------------------------------------------------
+
+Samples
+
+the `sample' directory has four files:
+
+  * check_user.rb : pam application which requires Ruby/PAM
+  * pam.d.ruby : pam configuration file for linux users
+  * passwd : an example password file
+  * simple.rb : old style of pam authentication module for PAM/Ruby
+  * simple2.rb : new style of pam authentication module for PAM/Ruby
+
+-------------------------------------------------------------------------------
+ttate@kt.jaist.ac.jp

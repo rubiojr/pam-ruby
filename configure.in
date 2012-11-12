@@ -1,0 +1,89 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(pam_ruby.c)
+
+CC=gcc
+RUBY=ruby
+
+AC_ARG_WITH(ruby,
+	[  --with-ruby=<ruby>		full path to the ruby program],
+	[case $withval in
+	'no'|'yes') RUBY=ruby ;;
+	*) RUBY=$withval ;;
+	esac
+	],
+	[RUBY=ruby])
+
+AC_ARG_WITH(ruby-pam,
+	[  --with-ruby-pam=<ruby-pam>	full path to the Ruby/PAM source directory],
+	[case $withval in
+	'no'|'yes') RUBYPAM_SRC=. ;;
+	*) RUBYPAM_SRC=$withval ;;
+	esac
+	],
+	[RUBYPAM_SRC=ruby-pam])
+
+AC_ARG_WITH(instdir,
+	[  --with-instdir=<install-directory> full path to the install directory],
+	[case $withval in
+	'no'|'yes') INSTDIR=/lib/security ;;
+	*) INSTDIR=$withval ;;
+	esac
+	],
+	[INSTDIR=/lib/security])
+
+RUBY_PREFIX=`$RUBY -r mkmf -e 'print(CONFIG[["prefix"]])'`
+RUBY_ARCH=`$RUBY -r mkmf -e 'print(CONFIG[["arch"]])'`
+RUBY_MAJOR=`$RUBY -r mkmf -e 'print(CONFIG[["MAJOR"]])'`
+RUBY_MINOR=`$RUBY -r mkmf -e 'print(CONFIG[["MINOR"]])'`
+RUBY_LIBS=`$RUBY -r mkmf -e 'print(CONFIG[["LIBS"]])'`
+RUBY_INSTALL_NAME=`$RUBY -r mkmf -e 'print(CONFIG[["RUBY_INSTALL_NAME"]])'`
+LDSHARED=`$RUBY -r mkmf -e 'print(CONFIG[["LDSHARED"]])'`
+RUBY_VERSION=$RUBY_MAJOR.$RUBY_MINOR
+RUBY_INCDIR=$RUBY_PREFIX/lib/ruby/$RUBY_VERSION/$RUBY_ARCH
+RUBY_LIBDIR=$RUBY_PREFIX/lib/ruby/$RUBY_VERSION/$RUBY_ARCH
+
+dnl Checks for libraries.
+
+LDFLAGS="-L$RUBY_LIBDIR -l$RUBY_INSTALL_NAME $RUBY_LIBS $LDFLAGS"
+CPPFLAGS="-I$RUBY_INCDIR -I$RUBYPAM_SRC $CPPFLAGS"
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(security/pam_appl.h)
+AC_CHECK_HEADERS(security/pam_misc.h)
+AC_CHECK_HEADERS(security/pam_modules.h)
+AC_CHECK_HEADERS(ruby.h)
+AC_CHECK_HEADERS(intern.h)
+AC_CHECK_HEADERS(pam.h)
+
+if test x$ac_cv_header_security_pam_appl_h = xyes
+then
+  CPPFLAGS="-DHAVE_SECURITY_PAM_APPL_H $CPPFLAGS"
+fi
+
+if test x$ac_cv_header_security_pam_misc_h = xyes
+then
+  CPPFLAGS="-DHAVE_SECURITY_PAM_MISC_H $CPPFLAGS"
+fi
+
+if test x$ac_cv_header_security_pam_modules_h = xyes
+then
+  CPPFLAGS="-DHAVE_SECURITY_PAM_MODULES_H $CPPFLAGS"
+fi
+
+if test x$ac_cv_header_pam_h = xno
+then
+  echo ""
+  echo "can't find 'pam.h', use --with-ruby-pam option"
+  exit 1
+fi
+
+AC_C_CONST
+
+AC_SUBST(INSTDIR)
+AC_SUBST(RUBY)
+AC_SUBST(CC)
+AC_SUBST(LDSHARED)
+AC_SUBST(RUBYPAM_SRC)
+
+AC_OUTPUT(Makefile)
