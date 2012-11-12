@@ -2,7 +2,8 @@ Source: pam-ruby
 Section: ruby
 Priority: optional
 Maintainer: Sergio Rubio <rubiojr@frameos.org>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev, libpam0g-dev, ruby-dev
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, libpam0g-dev, ruby-dev,
+               ruby | ruby-interpreter
 Standards-Version: 3.9.2
 Homepage: http://github.com/rubiojr/pam-ruby
 #Vcs-Git: git://git.debian.org/collab-maint/pam-ruby.git
