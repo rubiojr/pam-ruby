@@ -16,7 +16,7 @@ AC_ARG_WITH(ruby,
 AC_ARG_WITH(ruby-pam,
 	[  --with-ruby-pam=<ruby-pam>	full path to the Ruby/PAM source directory],
 	[case $withval in
-	'no'|'yes') RUBYPAM_SRC=. ;;
+	'no'|'yes') RUBYPAM_SRC=ruby-pam ;;
 	*) RUBYPAM_SRC=$withval ;;
 	esac
 	],

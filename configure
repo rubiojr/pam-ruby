@@ -1978,7 +1978,7 @@ fi
 # Check whether --with-ruby-pam was given.
 if test "${with_ruby_pam+set}" = set; then :
   withval=$with_ruby_pam; case $withval in
-	'no'|'yes') RUBYPAM_SRC=. ;;
+	'no'|'yes') RUBYPAM_SRC=ruby-pam ;;
 	*) RUBYPAM_SRC=$withval ;;
 	esac
 
